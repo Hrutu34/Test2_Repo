@@ -1,0 +1,17 @@
+# Build outputs
+/bin/
+/obj/
+
+# Runtime SQLite DB files
+invoices.db
+invoices.db-shm
+invoices.db-wal
+*.db
+
+# Misc
+display_an_invoice*.zip
+*.log
+.vs/
+.vscode/
+*.user
+.DS_Store

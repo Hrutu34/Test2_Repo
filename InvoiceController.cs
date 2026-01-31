@@ -1,6 +1,9 @@
 
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using BuggyApp.Data;
+using BuggyApp.Models;
+using System.Threading.Tasks;
 
 namespace BuggyApp.Controllers
 {
@@ -8,21 +11,15 @@ namespace BuggyApp.Controllers
     [Route("api/[controller]")]
     public class InvoiceController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult GetInvoice()
-        {
-            List<Item> items = null;
-            if (items.Count == 0) // NullReferenceException
-            {
-                return Ok(new { items });
-            }
-            return NotFound("No invoice found");
-        }
+        private readonly AppDbContext _db;
+        public InvoiceController(AppDbContext db) => _db = db;
 
-        public class Item
+        [HttpGet]
+        public async Task<IActionResult> GetInvoice()
         {
-            public string name { get; set; }
-            public double price { get; set; }
+            var invoice = await _db.Invoices.Include(i => i.Items).FirstOrDefaultAsync(i => i.InvoiceID == 1);
+            if (invoice == null) return NotFound("No invoice found");
+            return Ok(invoice);
         }
     }
 }
