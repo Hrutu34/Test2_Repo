@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace BuggyApp.Models
 {
@@ -7,7 +8,7 @@ namespace BuggyApp.Models
     {
         [Key]
         public int InvoiceID { get; set; }
-        public string CustomerName { get; set; }
-        public List<InvoiceItem> Items { get; set; }
+        public string? CustomerName { get; set; }
+        public List<InvoiceItem>? Items { get; set; }
     }
 }

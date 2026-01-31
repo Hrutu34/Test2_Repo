@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace BuggyApp.Models
 {
@@ -8,10 +9,11 @@ namespace BuggyApp.Models
         [Key]
         public int ItemID { get; set; }
         public int InvoiceID { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [Column(TypeName = "decimal(10,2)")]
         public decimal Price { get; set; }
 
-        public Invoice Invoice { get; set; }
+        [JsonIgnore]
+        public Invoice? Invoice { get; set; }
     }
 }
